@@ -3,6 +3,10 @@ package baekjoon.oneDimensionArray
 import java.util.Scanner
 
 
+/*
+백준에서 틀렸다고 나옴.
+*/
+
 // 첫째줄에 정수의 갯수
 // 둘째줄 정수가 공백으로 구별
 // 셋째줄 찾으려는 정수
