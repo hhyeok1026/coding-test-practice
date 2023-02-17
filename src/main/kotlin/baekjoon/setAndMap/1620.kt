@@ -32,48 +32,56 @@ fun main(args: Array<String>) {
 
     // Map 자료형이 필요함
     val pokemonEncyclopedia = mutableMapOf<Int, String>()
+    val reversePokemonEncyclopedia = mutableMapOf<String, Int>()
 
     // N개 먼저 입력받자
-    for (i in 0 until N) {
-        pokemonEncyclopedia[i] = br.readLine()
+    // 입력 index가 1부터 시작
+    for (i in 1..N) {
+        val pokemonName = br.readLine()
+        val key = i
+        pokemonEncyclopedia[i] = pokemonName
+        reversePokemonEncyclopedia[pokemonName] = i
     }
 
+    // 시간 초과가 걸리는데, try catch문 때문인가? -> try-catch문제는 아닌듯.
     val sb = StringBuilder()
     for (i in 0 until M) {
 
         // 문자열이 숫자인지 확인하는게 필요하다.
-        // try-catch로하면 안되네..
-        try {
-            val key = br.readLine().toInt()
-            sb.append(pokemonEncyclopedia[key])
+        val question: String = br.readLine()
+
+        val keyOfQuestion = question.toIntOrNull()
+
+        if (keyOfQuestion != null) { // 질문이 키로 왔을 경우
+            val foundValue = pokemonEncyclopedia[keyOfQuestion]
+            sb.append(foundValue)
             sb.append("\n")
-        } catch (ex : NumberFormatException) {
-            pokemonEncyclopedia.filter { key }
+        } else { // 질문이 포켓몬 이름일 경우.
+
+            // question이 이미 value이고 key를 찾아내면 됨.
+            // 이거도 시간초과이면 trycatch문제가 아니라 key값 찾는 로직이 문제다.
+
+            // 리버스맵을 둬서 찾아야 시간내에 해결될듯한데
+            // val foundKey = pokemonEncyclopedia.filterValues { question == it }.keys.first()
+            val foundKey = reversePokemonEncyclopedia[question]
+
+            sb.append(foundKey)
+            sb.append("\n")
         }
 
+        /*try {
+            val key: Int = question.toInt()
+            val foundValue = pokemonEncyclopedia[key]
+            sb.append(foundValue)
+            sb.append("\n")
+        } catch (ex : NumberFormatException) {
+            val foundKey = pokemonEncyclopedia.filter { question == it.value }.keys.first()
 
-
-        // 여기서 바로 프린트 해주면됨. (StringBuilder를 이용해서 한번에 출력하자.)
-        sb.append()
-
+            sb.append(foundKey)
+            sb.append("\n")
+        }*/
     }
 
     println(sb)
-
     br.close()
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
