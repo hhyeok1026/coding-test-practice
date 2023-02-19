@@ -1,40 +1,32 @@
-package baekjoon.recursion
-
+package baekjoon.recursion.gpt2447
 import java.util.*
 
-fun drawStars(n: Int, x: Int, y: Int) {
-    if (n == 1) {
-        stars[x][y] = '*'
-        return
-    }
-
-    val m = n / 3
-    for (i in 0 until 3) {
-        for (j in 0 until 3) {
-            if (i == 1 && j == 1) {
-                continue
-            }
-            drawStars(m, x + i * m, y + j * m)
-        }
-    }
-}
-
-fun printStars() {
-    for (i in 0 until stars.size) {
-        for (j in 0 until stars.size) {
-            print(stars[i][j])
-        }
-        println()
-    }
-}
-
-fun main(args: Array<String>) {
-
+fun main() {
     val scanner = Scanner(System.`in`)
     val n = scanner.nextInt()
-    val stars = Array(n) { CharArray(n) { ' ' } }
 
-    drawStars(n, 0, 0)
-    printStars()
+    val pattern = makePattern(n)
+    for (i in pattern.indices) {
+        println(pattern[i])
+    }
 }
 
+fun makePattern(n: Int): Array<String> {
+    if (n == 3) {
+        return arrayOf("***", "* *", "***")
+    }
+
+    val prevPattern = makePattern(n / 3)
+    val size = prevPattern.size
+    val pattern = Array(size * 3) { "" }
+
+    for (i in pattern.indices) {
+        if (i / size == 1) {
+            pattern[i] = prevPattern[i % size].padEnd(size * 2, ' ')
+        } else {
+            pattern[i] = prevPattern[i % size].repeat(3)
+        }
+    }
+
+    return pattern
+}
