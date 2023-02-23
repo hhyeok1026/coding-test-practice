@@ -1,13 +1,10 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.8.0"
     application
 }
 
-group = "me.choi"
+group = "org.example"
 version = "1.0-SNAPSHOT"
-
 
 repositories {
     mavenCentral()
@@ -18,12 +15,11 @@ dependencies {
 }
 
 tasks.test {
-    useJUnit()
+    useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-
+kotlin {
+    jvmToolchain(17)
 }
 
 application {
