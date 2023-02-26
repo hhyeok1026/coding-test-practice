@@ -13,9 +13,8 @@ output
 
 
 // 배열의 특정범위를 찝어서, 그부분을 rotate시켜야함.
-rotate하는 알고리즘을 알아봐야겠는데, 컬렉션은 통째로 되서.. 직접 구현을 해야할듯.
-어려우니, 나중에 집에 가서 해봐야겠음.
-
+-> 지금 temp로 요소 하나만 받았는데,
+이거를 배열로 받아서 for문에 함수안쓰고, 그냥 함수 하나로 끝낼 수도 있긴함.
  */
 
 fun main(args: Array<String>) {
@@ -24,7 +23,7 @@ fun main(args: Array<String>) {
     val n = st.nextToken().toInt()
     val m = st.nextToken().toInt()
 
-    val buket = IntArray(n) { i -> i + 1}.toList()
+    val buket = IntArray(n) { i -> i + 1}
 
     repeat(m) {
         st = StringTokenizer(br.readLine())
@@ -32,30 +31,19 @@ fun main(args: Array<String>) {
         val end = st.nextToken().toInt() - 1
         val mid = st.nextToken().toInt() - 1
 
-        /*println("==============")
-        println("repeat: $it")
-        println("begin: $begin")
-        println("end: $end")
-        println("mid: $mid")*/
-
-        /*
-        i~j까지의 순서에서
-        k를 기준으로 다시 "k~j~i"로 순서를 바꿔야함.
-         */
-        // (k-i만큼 왼쪽으로 한번식 옮겨가야하는 문제다)
-        for (i in begin until (mid - begin) ) {
-            // rotate(buket, begin, end)
-            Collections.rotate(buket,-1)
+        for (i in 0 until (mid - begin) ) { // 몇 번 옮겨가야하는지
+            rotate(buket, begin, end)
         }
     }
     println(buket.joinToString(" "))
     br.close()
 }
 
-// begin~end까지의 범위를 왼쪽으로 한칸씩 밀어야한다.
+// 한 번 호출마다, begin~end까지의 범위를 왼쪽으로 한칸씩 밀기
 fun rotate(buket: IntArray, begin: Int, end: Int) {
-
+    val temp = buket[begin]
     for(i in begin until end) {
         buket[i] = buket[i+1]
     }
+    buket[end] = temp
 }
