@@ -1,4 +1,4 @@
-package baekjoon.recursion
+package baekjoon.recursion._25501
 
 /*
 팰린드롬 : 앞뒤가 똑같은 전화번호~

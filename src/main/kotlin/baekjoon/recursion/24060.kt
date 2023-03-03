@@ -1,4 +1,16 @@
-package baekjoon.recursion
+package baekjoon.recursion._24060
+
+/*
+baekjoon.recursion.(하위패키지추가)
+
+패키지명을 수정하니,
+Error running '_24060Kt': Class 'baekjoon.recursion._24060Kt' not found in module 'codingTest.main
+라고 에러메세지가 나온다.
+
+왜 이 패키지에서 하위로 더 내려가게 만들면 안되는 것이지?
+다시 하니까 빌드가 되고 _25501Kt(1)이라고 숫자가 붙었다.
+*/
+
 
 import java.util.StringTokenizer
 
@@ -22,6 +34,8 @@ output
 
 var saveCount = 0
 var k = 0
+var result = -1 // k값이 saveCount보다 작았다면, -1로 계속 유지 되었을 것이다.
+
 fun main(args: Array<String>) {
     val br = System.`in`.bufferedReader()
     var st = StringTokenizer(br.readLine())
@@ -39,9 +53,7 @@ fun main(args: Array<String>) {
 
     mergeSort(arrayA, 0, arrayA.size - 1)
 
-    if (saveCount < k) {
-        println("-1")
-    }
+    println(result)
 
     // 정렬 완료 확인
     // println(arrayA.contentToString())
@@ -111,7 +123,7 @@ fun merge(array: IntArray, p: Int, q: Int, r: Int) {
         saveCount++
 
         if(saveCount == k){
-            println(array[i])
+            result = array[i]
         }
 
         i++
